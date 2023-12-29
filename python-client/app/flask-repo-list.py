@@ -15,7 +15,7 @@ def printResult(repos):
 
 def getRepos():
   topSize = 10
-  githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page={topSize}"
+  githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page=%d" %topSize
   response = requests.get(githubURL)
   listOfReposJson = response.json()
   return listOfReposJson['items']
@@ -25,7 +25,6 @@ app = Flask(__name__)
 @app.route('/')
 def listOfRepos():
   repos_list = getRepos();
-  printResult(repos_list);
   return render_template('index.html', repos = repos_list)
 
 if __name__ == '__main__':
