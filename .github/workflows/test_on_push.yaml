@@ -15,6 +15,6 @@ jobs:
         # Устанавливаем зависимости
         run: pip install -r python-client/requirements.txt
       - name: Run tests
-        run: coverage run python-client/tests/tests.py
+        run: coverage run python-client/app/tests.py
       - name: Tests report
         run: coverage report

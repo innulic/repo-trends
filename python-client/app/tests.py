@@ -1,6 +1,7 @@
 import unittest
+import sys # added!
+sys.path.append("..") # added!
 import app as tested_app
-import json
 
 class FlaskAppTests(unittest.TestCase):
 
