@@ -1,0 +1,9 @@
+{
+    "github": {
+      "enabled": false,
+      "silent": true
+    },
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/python-client/api/index" }
+    ]
+}
