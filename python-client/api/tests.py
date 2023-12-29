@@ -1,7 +1,7 @@
 import unittest
 import sys # added!
 sys.path.append("..") # added!
-import app as tested_app
+import index as tested_app
 
 class FlaskAppTests(unittest.TestCase):
 
