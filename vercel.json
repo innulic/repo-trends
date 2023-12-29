@@ -1,9 +1,16 @@
 {
-    "github": {
-      "enabled": false,
-      "silent": true
-    },
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/python-client/api/index" }
+    "builds": [
+        {
+            "src": "python-client/api/index.py",
+            "use": "@vercel/python"
+        },
+        { "src": "*.html", "use": "@vercel/static" },
+        { "src": "*.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "python-client/api/index.py"
+        }
     ]
 }
