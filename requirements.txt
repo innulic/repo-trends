@@ -1,4 +1,4 @@
 requests
 flask
 coverage
-Authlib
+authlib>=1.2.0
