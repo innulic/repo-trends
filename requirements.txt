@@ -2,4 +2,3 @@ requests
 flask
 coverage
 Authlib
-python-dotenv

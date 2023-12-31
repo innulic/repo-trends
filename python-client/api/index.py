@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, session
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from os import getenv
 from authlib.integrations.flask_client import OAuth
 import requests
@@ -69,5 +69,5 @@ def logout():
     return redirect('/')
 
 if __name__ == '__main__':
-    load_dotenv()
+    # load_dotenv()
     app.run()
