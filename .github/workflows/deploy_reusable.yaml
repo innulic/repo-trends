@@ -8,9 +8,15 @@ on:
     secrets:
       VERCEL_TOKEN:
         required: true
+      VERCEL_ORG_ID:
+        required: true
+      VERCEL_PROJECT_ID:
+        required: true
 
 env:
   vercel_environment_arg: ${{ inputs.environment == 'production' && '--prod' || '' }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
   Deploy:
