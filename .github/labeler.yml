@@ -26,18 +26,12 @@ Local-Run:
     - run/local-run.sh
 
 CodeBase:
-- changed-files:
-  - any-glob-to-any-file: 'python-client/api/**'
-  - all-globs-to-all-files: '!python-client/api/tests.py'
+- all:
+  - changed-files:
+    - any-glob-to-any-file: 'python-client/api/**'
+    - all-globs-to-all-files: '!python-client/api/tests.py'
 
 Tests:
 - changed-files:
   - any-glob-to-any-file:
-    - "python-client/api/tests.py"
-
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
-source:
-- all:
-  - changed-files:
-    - any-glob-to-any-file: 'src/**/*'
-    - all-globs-to-all-files: '!src/docs/*'
+    - 'python-client/api/tests.py'
