@@ -1,0 +1,43 @@
+# Add 'Documentation' label to any changes within 'docs' folder or any subfolders
+Documentation:
+- changed-files:
+  - any-glob-to-any-file: 
+    - docs/**
+    - '**/*.md'
+
+Pipeline:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/**
+
+Dependencies:
+- changed-files:
+  - any-glob-to-any-file:
+    - requierements.txt
+
+Deployments:
+- changed-files:
+  - any-glob-to-any-file:
+    - vercel.json
+
+Local-Run:
+- changed-files:
+  - any-glob-to-any-file:
+    - run/local-run.sh
+
+CodeBase:
+- changed-files:
+  - any-glob-to-any-file: 'python-client/api/**'
+  - all-globs-to-all-files: '!python-client/api/tests.py'
+
+Tests:
+- changed-files:
+  - any-glob-to-any-file:
+    - "python-client/api/tests.py"
+
+# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+source:
+- all:
+  - changed-files:
+    - any-glob-to-any-file: 'src/**/*'
+    - all-globs-to-all-files: '!src/docs/*'
