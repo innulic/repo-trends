@@ -21,9 +21,10 @@
         <div class="navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    {% if currentUser is none %}
-                        <a class="nav-link" href="{{ url_for('login') }}" class="button__login">Login</a>
-                    {% else %}    
+                    {% if token is none %}
+                        <a class="nav-link button__login" href="{{ url_for('login') }}">Login</a>
+                    {% else %}
+                        <p class="card-text">Hello {{ user_login }}</p>    
                         <a href="{{ url_for('logout') }}" class="button__logout">Log Out</a>
                     {% endif %}
                 </li>

@@ -17,9 +17,9 @@ def printResult(repos):
     print("URL: ", url)
     print()
 
-def getRepos(user):
+def getRepos(token):
   topSize = 10
-  if user is not None:
+  if token is not None:
     topSize = 1
   githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page=%d" %topSize
   response = requests.get(githubURL)
@@ -40,14 +40,15 @@ github = oauth.register(
     authorize_url='https://github.com/login/oauth/authorize',
     authorize_params=None,
     api_base_url='https://api.github.com/',
-    client_kwargs={'scope': 'user:email'},
+    client_kwargs={'scope': ''},
 )  
 
 @app.route('/')
 def listOfRepos():
-  user = session.get("user");
-  repos_list = getRepos(user);
-  return render_template('index.html', repos = repos_list, currentUser = user)
+  token = session.get("token");
+  user_login = session.get("user_login");
+  repos_list = getRepos(token);
+  return render_template('index.html', repos = repos_list, token = token, user_login = user_login)
 
 @app.route("/login")
 def login():
@@ -60,7 +61,8 @@ def authorize():
     resp = github.get('user', token=token)
     resp.raise_for_status()
     profile = resp.json()
-    session["user"] = token
+    session["user_login"] = profile["login"]
+    session["token"] = token
     return redirect('/')
 
 @app.route("/logout")
