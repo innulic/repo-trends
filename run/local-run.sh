@@ -76,8 +76,10 @@ set_environment_variable_if_needed()
     for element in "${environment_variable[@]}"; do
         if ! check_environment_variable $element; then
             set_environment_variable $element
+            echo "export $element=$(printenv $element)" >> ~/.bashrc
         fi
     done
+    source ~/.bashrc
 }
 
 setup_local_environment()
