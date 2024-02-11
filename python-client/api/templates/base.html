@@ -16,7 +16,7 @@
 <body>
 
 <!-- навигация -->
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <div class="navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
@@ -24,8 +24,10 @@
                     {% if token is none %}
                         <a class="nav-link button__login" href="{{ url_for('login') }}">Login</a>
                     {% else %}
-                        <p class="card-text">Hello {{ user_login }}</p>    
-                        <a href="{{ url_for('logout') }}" class="button__logout">Log Out</a>
+                        <div class="d-flex align-items-center"> <!-- Add d-flex and align-items-center classes for flexbox alignment -->
+                            <p class="card-text mb-0">Hello {{ user_login }}</p>
+                            <a href="{{ url_for('logout') }}" class="nav-link button__logout">Log Out</a>
+                        </div>
                     {% endif %}
                 </li>
             </ul>

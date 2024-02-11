@@ -4,6 +4,7 @@ from os import getenv
 from authlib.integrations.flask_client import OAuth
 import requests
 import uuid
+import login_data
 
 
 def printResult(repos):
@@ -20,11 +21,12 @@ def printResult(repos):
 def getRepos(token):
   topSize = 10
   if token is not None:
-    topSize = 1
-  githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page=%d" %topSize
-  response = requests.get(githubURL)
-  listOfReposJson = response.json()
-  return listOfReposJson['items']
+    return login_data.getTrandingRepos(token);
+  else:
+    githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page=%d" %topSize
+    response = requests.get(githubURL)
+    listOfReposJson = response.json()
+    return listOfReposJson['items']
 
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
