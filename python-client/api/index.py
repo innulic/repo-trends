@@ -6,27 +6,11 @@ import requests
 import uuid
 import login_data
 
-
-def printResult(repos):
-  for repo in repos:
-    name = repo['name']
-    description = repo['description']
-    url = repo['html_url']
-    stars = repo['stargazers_count']
-    print("name: ", name, "*-Star: ", stars)
-    print("description: ", description)
-    print("URL: ", url)
-    print()
-
-def getRepos(token):
-  topSize = 10
-  if token is not None:
-    return login_data.getTrandingRepos(token);
+def getRepos(user_login):
+  if user_login is not None:
+    return login_data.filteredRepos(user_login);
   else:
-    githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page=%d" %topSize
-    response = requests.get(githubURL)
-    listOfReposJson = response.json()
-    return listOfReposJson['items']
+    return login_data.getTopStarredRepos();
 
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
@@ -49,7 +33,7 @@ github = oauth.register(
 def listOfRepos():
   token = session.get("token");
   user_login = session.get("user_login");
-  repos_list = getRepos(token);
+  repos_list = getRepos(user_login);
   return render_template('index.html', repos = repos_list, token = token, user_login = user_login)
 
 @app.route("/login")
