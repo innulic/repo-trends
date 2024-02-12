@@ -4,27 +4,13 @@ from os import getenv
 from authlib.integrations.flask_client import OAuth
 import requests
 import uuid
+import login_data
 
-
-def printResult(repos):
-  for repo in repos:
-    name = repo['name']
-    description = repo['description']
-    url = repo['html_url']
-    stars = repo['stargazers_count']
-    print("name: ", name, "*-Star: ", stars)
-    print("description: ", description)
-    print("URL: ", url)
-    print()
-
-def getRepos(user):
-  topSize = 10
-  if user is not None:
-    topSize = 1
-  githubURL = "https://api.github.com/search/repositories?q=Q&sort=stars&order=desc&per_page=%d" %topSize
-  response = requests.get(githubURL)
-  listOfReposJson = response.json()
-  return listOfReposJson['items']
+def getRepos(user_login):
+  if user_login is not None:
+    return login_data.filteredRepos(user_login);
+  else:
+    return login_data.getTopStarredRepos();
 
 app = Flask(__name__)
 app.secret_key = uuid.uuid4().hex
@@ -40,14 +26,15 @@ github = oauth.register(
     authorize_url='https://github.com/login/oauth/authorize',
     authorize_params=None,
     api_base_url='https://api.github.com/',
-    client_kwargs={'scope': 'user:email'},
+    client_kwargs={'scope': ''},
 )  
 
 @app.route('/')
 def listOfRepos():
-  user = session.get("user");
-  repos_list = getRepos(user);
-  return render_template('index.html', repos = repos_list, currentUser = user)
+  token = session.get("token");
+  user_login = session.get("user_login");
+  repos_list = getRepos(user_login);
+  return render_template('index.html', repos = repos_list, token = token, user_login = user_login)
 
 @app.route("/login")
 def login():
@@ -60,7 +47,8 @@ def authorize():
     resp = github.get('user', token=token)
     resp.raise_for_status()
     profile = resp.json()
-    session["user"] = token
+    session["user_login"] = profile["login"]
+    session["token"] = token
     return redirect('/')
 
 @app.route("/logout")

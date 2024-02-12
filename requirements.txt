@@ -3,3 +3,4 @@ flask
 coverage
 cryptography==3.4.8
 authlib
+beautifulsoup4

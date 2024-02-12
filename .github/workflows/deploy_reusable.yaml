@@ -30,4 +30,4 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build ${{ env.vercel_environment_arg }} --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt ${{ env.vercel_environment_arg }} --token=${{ secrets.VERCEL_TOKEN }} --archive=tgz
+        run: vercel deploy --prebuilt ${{ env.vercel_environment_arg }} --token=${{ secrets.VERCEL_TOKEN }}

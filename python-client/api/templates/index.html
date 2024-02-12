@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}<!-- index.html -->
-
-    <h1>Top Github repos</h1>
+{% if token is none %}
+    <h1>Top Github repos (based on stars)</h1>
+{% else %}
+    <h1>Top Github repos (according to trends)</h1>
+{% endif %}
     {% for repo in repos %}
         <div>
             <div class="card mb-3">
