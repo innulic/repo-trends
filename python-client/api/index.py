@@ -4,7 +4,7 @@ from os import getenv
 from authlib.integrations.flask_client import OAuth
 import requests
 import uuid
-import login_data
+from api import login_data
 
 def getRepos(user_login):
   if user_login is not None:
