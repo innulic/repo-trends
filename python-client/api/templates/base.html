@@ -25,7 +25,9 @@
                         <a class="nav-link button__login" href="{{ url_for('login') }}">Login</a>
                     {% else %}
                         <div class="d-flex align-items-center"> <!-- Add d-flex and align-items-center classes for flexbox alignment -->
-                            <p class="card-text mb-0">Hello {{ user_login }}</p>
+                            <div class="me-3"> 
+                                <p class="card-text mb-0">Hello {{ user_login }}</p>
+                            </div>
                             <a href="{{ url_for('logout') }}" class="nav-link button__logout">Log Out</a>
                         </div>
                     {% endif %}
