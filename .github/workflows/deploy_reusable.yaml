@@ -24,12 +24,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: npm install --global vercel@33.2.0
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=${{ inputs.environment }} --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build ${{ env.vercel_environment_arg }} --token=${{ secrets.VERCEL_TOKEN }}
-      - name: List build output
-        run: ls -l .vercel/output
+        run: vercel build ${{ env.vercel_environment_arg }} --token=${{ secrets.VERCEL_TOKEN }} --archive=tgz
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt ${{ env.vercel_environment_arg }} --token=${{ secrets.VERCEL_TOKEN }}
