@@ -11,7 +11,8 @@ jobs:
     name: Run Tests
     uses: ./.github/workflows/test_on_push.yaml
 
-name: Deploy Preview
+  job2:
+    name: Deploy Production
     needs: job1
     uses: ./.github/workflows/deploy_reusable.yaml
     with:
