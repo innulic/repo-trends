@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, session
-# from dotenv import load_dotenv
+from authlib.integrations.base_client.errors import OAuthError
 from os import getenv
 from authlib.integrations.flask_client import OAuth
 import requests
@@ -44,12 +44,16 @@ def login():
 
 @app.route("/authorize")
 def authorize():
+  try:
     token = github.authorize_access_token()
     resp = github.get('user', token=token)
     resp.raise_for_status()
     profile = resp.json()
     session["user_login"] = profile["login"]
     session["token"] = token
+    return redirect('/')
+  except OAuthError as ex:
+    print(f"An error occurred: {ex}")
     return redirect('/')
 
 @app.route("/logout")
