@@ -4,16 +4,17 @@ from os import getenv
 from authlib.integrations.flask_client import OAuth
 import requests
 import uuid
-from api import login_data
+
+app = Flask(__name__)
+app.secret_key = uuid.uuid4().hex
+
+import login_data
 
 def getRepos(user_login):
   if user_login is not None:
     return login_data.filteredRepos(user_login);
   else:
     return login_data.getTopStarredRepos();
-
-app = Flask(__name__)
-app.secret_key = uuid.uuid4().hex
 
 oauth = OAuth(app)
 
